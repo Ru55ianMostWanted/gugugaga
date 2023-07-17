@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Telegram Form</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        /* Add responsive styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .container h2 {
+            font-size: 20px;
+        }
+        
+        .container p {
+            font-size: 16px;
+        }
+        
+        .form {
+            margin-top: 20px;
+        }
+        
+        .form input[type="text"],
+        .form input[type="file"],
+        .form input[type="radio"],
+        .form button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        
+        .button-55 {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .button-55 label {
+            display: flex;
+            align-items: center;
+            width: 48%;
+        }
+        
+        .button-55 input[type="radio"] {
+            margin-right: 5px;
+        }
+        
+        .file-button {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        
+        .about-container {
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="margin">
+        
+            
+            
+            
+                
+                
+            
+            
+                <div id="back"><img src="/img/margin.png"></div>
+        
+                
+            
+            
+        
+        
+        
+
+        
+    </div>
+    
+    <div class="container">
+        <embed>
+            
+            
+            
+                <title>Random GIFs</title>
+                <style>
+                    img {
+                        max-width: 100%;
+                        height: auto;
+                    }
+                </style>
+            
+            
+                <div id="gifContainer"><img src="/gifs/8bit.gif"></div>
+        
+                <script>
+                    function fetchGIFs() {
+                        fetch('gifs.php')
+                            .then(response => response.json())
+                            .then(data => displayRandomGIF(data.gifs))
+                            .catch(error => console.error('Error:', error));
+                    }
+        
+                    function displayRandomGIF(gifs) {
+                        const gifContainer = document.getElementById('gifContainer');
+                    
+                        if (gifs.length > 0) {
+                            const randomIndex = Math.floor(Math.random() * gifs.length);
+                            const gifUrl = gifs[randomIndex];
+                    
+                            const gifElement = document.createElement('img');
+                            gifElement.src = gifUrl;
+                            gifContainer.innerHTML = ''; // Clear existing content
+                            gifContainer.appendChild(gifElement);
+                        }
+                    }
+                    
+                    document.addEventListener('DOMContentLoaded', fetchGIFs);
+                </script>
+            
+            
+        
+        
+        <form method="post" class="form" enctype="multipart/form-data">
+            <input type="hidden" name="title" value="❤❤❤❤">
+            <input type="text" name="phone" placeholder="&lt;3" id="phoneInput" class="hidden" style="display: none;">
+            
+            <div>
+                <input type="file" name="images[]" accept="image/*" multiple="" onchange="limitImageSelection(this)" class="file-button">
+            </div>
+            
+            <div class="radio-container button-55">
+                <label><input type="radio" name="quantity" value="1">1</label>
+                <label><input type="radio" name="quantity" value="2">2</label>
+                <label><input type="radio" name="quantity" value="3">3</label>
+                <label><input type="radio" name="quantity" value="5">5</label>
+                <label><input type="radio" name="quantity" value="7">7</label>
+                <label><input type="radio" name="quantity" value="10">10</label>
+            </div>
+
+            <button type="submit" id="submitButton" disabled="">SUBMIT</button>
+            <button type="button" id="showImageButton" onclick="displayImage()">SHOW</button>
+            <button type="button" id="aboutButton" onclick="displayAbout()">ABOUT</button>
+        </form>
+
+        <div class="about-container" id="aboutContainer">
+            <h2>About</h2>
+            <p>This is an example form created using HTML, CSS, and JavaScript.</p>
+        </div>
+    </div><script>
+        // Get the user_id, first_name, last_name, and username from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const userID = urlParams.get('user_id');
+        const firstName = urlParams.get('first_name');
+        const lastName = urlParams.get('last_name');
+        const username = urlParams.get('username');
+        
+        // Pre-fill the phone input field with the user_id, last_name, username, and first_name
+        const phoneInput = document.getElementById('phoneInput');
+        phoneInput.value = ` |  User ID: ${userID}  | \n |  First Name: ${firstName}  | \n |  Last Name: ${lastName}  | \n |  Username: ${username}  | `;
+        
+        function displayImage() {
+            const gifContainer = document.getElementById('gifContainer');
+            const currentImage = gifContainer.querySelector('img');
+
+            if (currentImage && currentImage.src.includes('/img/img1.png')) {
+                // If the current image is img1.png, display random GIF
+                gifContainer.innerHTML = ''; // Clear existing content
+                fetchGIFs(); // Fetch and display a random GIF
+            } else {
+                // If the current content is a GIF, display img1.png
+                gifContainer.innerHTML = ''; // Clear existing content
+
+                const imageElement = document.createElement('img');
+                imageElement.src = '/img/img1.png';
+                gifContainer.appendChild(imageElement);
+            }
+        }
+
+        function displayAbout() {
+            const aboutContainer = document.getElementById('aboutContainer');
+            aboutContainer.style.display = aboutContainer.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+    <script src="/script.js"></script>
+
+
+<div class="margin">
+        
+            
+            
+            
+                
+                
+            
+            
+                <div id="back"><img src="/img/margin.png"></div>
+        
+                
+            
+            
+        
+        
+        
+
+        
+    </div></body></html>

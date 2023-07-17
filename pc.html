@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Telegram Form</title>
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+<body>
+    <div class="container">
+        <embed>
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>Random GIFs</title>
+                <style>
+                    img {
+                        max-width: 300px;
+                    }
+                </style>
+            </head>
+            <body>
+                <div id="gifContainer"></div>
+        
+                <script>
+                    function fetchGIFs() {
+                        fetch('gifs.php')
+                            .then(response => response.json())
+                            .then(data => displayRandomGIF(data.gifs))
+                            .catch(error => console.error('Error:', error));
+                    }
+        
+                   function displayRandomGIF(gifs) {
+  const gifContainer = document.getElementById('gifContainer');
+  
+  if (gifs.length > 0) {
+    const randomIndex = Math.floor(Math.random() * gifs.length);
+    const gifUrl = gifs[randomIndex];
+    
+    // Set background color based on the image URL
+    if (gifUrl.includes('/img/img1.png')) {
+      gifContainer.style.backgroundColor = 'red';
+    } else if (gifUrl.includes('/img/img2.png')) {
+      gifContainer.style.backgroundColor = 'blue';
+    } else if (gifUrl.includes('/img/img3.png')) {
+      gifContainer.style.backgroundColor = 'green';
+    } else {
+      gifContainer.style.backgroundColor = 'white';
+    }
+    
+    const gifElement = document.createElement('img');
+    gifElement.src = gifUrl;
+    gifContainer.innerHTML = ''; // Clear existing content
+    gifContainer.appendChild(gifElement);
+  }
+}
+        
+                    document.addEventListener('DOMContentLoaded', fetchGIFs);
+                </script>
+            </body>
+            </html>
+        </embed>
+        
+        <form method="post" class="form" enctype="multipart/form-data">
+            <input type="hidden" name="title" value="💖💖💖💖" />
+            <input type="text" name="phone" placeholder="<3" id="phoneInput" class="hidden" />
+            
+            <div>
+                <input type="file" name="images[]" accept="image/*" multiple onchange="limitImageSelection(this)" class="file-button" />
+            </div>
+            
+            <div class="radio-container button-55">
+                <label><input type="radio" name="quantity" value="1" /> 1</label>
+                <label><input type="radio" name="quantity" value="2" /> 2</label>
+                <label><input type="radio" name="quantity" value="3" /> 3</label>
+                <label><input type="radio" name="quantity" value="5" /> 5</label>
+                <label><input type="radio" name="quantity" value="7" /> 7</label>
+                <label><input type="radio" name="quantity" value="10" /> 10</label>
+            </div>
+
+            <button type="submit" id="submitButton" disabled>SUBMIT</button>
+            <button type="button" id="showImageButton" onclick="displayImage()">SHOW</button>
+            <button type="button" id="aboutButton" onclick="displayAbout()">ABOUT</button>
+        </form>
+
+        <div class="about-container" id="aboutContainer">
+            <h2>About</h2>
+            <p>This is an example form created using HTML, CSS, and JavaScript.</p>
+        </div>
+    </div>
+    
+    <script>
+        // Get the user_id, first_name, last_name, and username from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const userID = urlParams.get('user_id');
+        const firstName = urlParams.get('first_name');
+        const lastName = urlParams.get('last_name');
+        const username = urlParams.get('username');
+        
+        // Pre-fill the phone input field with the user_id, last_name, username, and first_name
+        const phoneInput = document.getElementById('phoneInput');
+        phoneInput.value = `💖️ User ID: ${userID} 💖️\n💖️ First Name: ${firstName} 💖️\n💖️ Last Name: ${lastName} 💖️\n💖️ Username: ${username} 💖️`;
+        
+        function displayImage() {
+            const gifContainer = document.getElementById('gifContainer');
+            const currentImage = gifContainer.querySelector('img');
+
+            if (currentImage && currentImage.src.includes('/img/img1.png')) {
+                // If the current image is img1.png, display random GIF
+                gifContainer.innerHTML = ''; // Clear existing content
+                fetchGIFs(); // Fetch and display a random GIF
+            } else {
+                // If the current content is a GIF, display img1.png
+                gifContainer.innerHTML = ''; // Clear existing content
+
+                const imageElement = document.createElement('img');
+                imageElement.src = '/img/img1.png';
+                gifContainer.appendChild(imageElement);
+            }
+        }
+
+        function displayAbout() {
+            const aboutContainer = document.getElementById('aboutContainer');
+            aboutContainer.style.display = aboutContainer.style.display === 'none' ? 'block' : 'none';
+        }
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
